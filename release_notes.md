@@ -1,3 +1,17 @@
+***********************************
+# Release Notes for 4.4.0
+
+Oct 16, 2025
+
+* Updated UnitCompBase to address a change in OpenMDAO 3.40 that changed arguments to add_output. [#109](https://github.com/OpenMDAO/pyCycle/pull/109)
+* Fixed an incorrectly transcribed table value in the 1976 atmosphere. [#106](https://github.com/OpenMDAO/pyCycle/pull/106)
+* Updated package dependencies to include "parameterized". [#104](https://github.com/OpenMDAO/pyCycle/pull/104)
+* Updated the viewers to support a change in OpenMDAO 3.39 that eliminated support for hybrid promoted paths. [#103](https://github.com/OpenMDAO/pyCycle/pull/103)
+* Fixed example in flight_conditions.py [#98](https://github.com/OpenMDAO/pyCycle/pull/98)
+* Added workflow to publish new releases to PYPI [#92](https://github.com/OpenMDAO/pyCycle/pull/92)
+* Updated badges in the README [#88](https://github.com/OpenMDAO/pyCycle/pull/88)
+
+
 
 ***********************************
 # Release Notes for 4.3.0
