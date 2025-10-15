@@ -2,14 +2,15 @@ import inspect
 import numpy as np
 
 from openmdao.api import ExplicitComponent
+from openmdao.core.component import Component
 
-_full_out_args = inspect.getfullargspec(ExplicitComponent.add_output)
+_full_out_args = inspect.getfullargspec(Component.add_output)
 _allowed_out_args = set(_full_out_args.args[3:] + _full_out_args.kwonlyargs)
 
 
 class UnitCompBase(ExplicitComponent):
 
-    def initialize(self): 
+    def initialize(self):
         self.options.declare('fl_name')
 
     def setup_io(self):
@@ -24,24 +25,24 @@ class UnitCompBase(ExplicitComponent):
             meta = rel2meta[in_name]
             new_meta = {k:v for k, v in meta.items() if k in _allowed_out_args}
             meta_val = meta['val']
-            if isinstance(meta_val, float): 
+            if isinstance(meta_val, float):
                 val = meta_val
-            else: 
+            else:
                 val = meta_val.copy()
             self.add_output(out_name, val=val, **new_meta)
-            
+
         rel2meta = self._var_rel2meta
 
         for in_name, out_name in zip(self._var_rel_names['input'], self._var_rel_names['output']):
 
             shape = rel2meta[in_name]['shape']
-            if shape is not None: 
+            if shape is not None:
                 size = np.prod(shape)
                 row_col = np.arange(size, dtype=int)
 
                 self.declare_partials(of=out_name, wrt=in_name,
                                       val=np.ones(size), rows=row_col, cols=row_col)
-            else: 
+            else:
                 self.declare_partials(of=out_name, wrt=in_name, val=1)
 
     def compute(self, inputs, outputs):
